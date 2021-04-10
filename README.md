@@ -1,3 +1,33 @@
+#### After go.mod was introduced, I can't make this run:
+
+Trying advice from:
+- https://stackoverflow.com/questions/14323872/using-forked-package-import-in-go
+- https://stackoverflow.com/a/61313095
+- https://github.com/golang/go/wiki/Modules#when-should-i-use-the-replace-directive
+
+```
+cd $GOPATH
+mkdir -p {src,bin,pkg}
+mkdir -p src/github.com/ipfs/
+cd src/github.com/ipfs/
+git clone git@github.com:romanblanco/go-ipfs-api.git
+cd go-ipfs-api/
+go get .
+```
+
+Does get packages, but when trying to run `go run main.go`, errors with
+
+```
+# command-line-arguments
+./main.go:103:19: sh.GetRawTar undefined (type *shell.Shell has no field or method GetRawTar)
+```
+
+Missing the function implemented in `romanblanco/go-ipfs-api` fork.
+
+I've tried to only import the forked library, and adjusting it's "path", but kept getting error described in the commit message:
+
+https://github.com/romanblanco/go-ipfs-api/commit/f1804bfb4cb3e8aee293d0c0f166171a93cbf9a6
+
 ### build and run server:
 
 ```sh

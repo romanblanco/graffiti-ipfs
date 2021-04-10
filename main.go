@@ -100,10 +100,13 @@ func main() {
 	debugLog.Debugf("got metadata of %v photos from IPFS", len(photoMetadata))
 	descriptionFromIPFS := GraffitiSet{}
 
+
+  debugLog.Debugf("IPFS_CONTENT: %si\n", IPFS_CONTENT)
 	rawTar, err := sh.GetRawTar(IPFS_CONTENT)
 	debugLog.Debugf("got raw tar of photos from IPFS: %T: %v", rawTar, rawTar)
 	extractorInstance := extractor.New(rawTar)
 	if err != nil {
+    debugLog.Debugf("err:", err)
 		panic("error while extracting raw tar")
 	}
 
